@@ -1,18 +1,12 @@
 # Lucia choir practice site
 
+<p align="center"><a href="https://hawkjo.github.io/lucia-choir/"><img src="https://img.shields.io/badge/Open_the_practice_site-b01f29?style=for-the-badge" alt="Open the practice site" height="40"></a></p>
+
 Sheet music for each song with a moving marker, a five-step mix per part
 (only my part → everyone except my part), starting notes like a pitch pipe,
 a "Hide notes" view for singing from memory, a printable PDF and an MP3
 (all parts equal) per song, and Hanna Norbäck's sung pronunciation for the
 two Swedish songs. Static site: works on GitHub Pages as is.
-
-## Publish
-
-```bash
-./deploy.sh            # creates github.com/<you>/lucia-choir and turns on Pages
-```
-
-Run it again after any change to push the update.
 
 ## Change a song
 
