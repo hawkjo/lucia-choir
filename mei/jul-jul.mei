@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mei xmlns="http://www.music-encoding.org/ns/mei" meiversion="5.0">
+<meiHead><fileDesc><titleStmt>
+<title>Jul, jul, strålande jul</title>
+<title type="subordinate">in C major</title>
+</titleStmt><pubStmt/></fileDesc></meiHead>
+<music><body><mdiv><score>
+<scoreDef meter.count="6" meter.unit="8" key.sig="0">
+<pgHead><rend halign="center" valign="top"><rend fontsize="200%">Jul, jul, strålande jul</rend></rend><rend halign="center" valign="middle"><rend fontsize="110%">in C major</rend></rend><rend halign="left" valign="bottom">Edvard Evers</rend><rend halign="right" valign="bottom">Gustaf Nordqvist<lb/>bearb. Hanna Norbäck</rend></pgHead>
+<staffGrp bar.thru="false">
+<staffDef n="1" lines="5" clef.shape="G" clef.line="2"><label>Melody</label><labelAbbr>Mel.</labelAbbr></staffDef>
+<staffDef n="2" lines="5" clef.shape="G" clef.line="2"><label>Harmony</label><labelAbbr>Har.</labelAbbr></staffDef>
+<staffDef n="3" lines="5" clef.shape="G" clef.line="2" clef.dis="8" clef.dis.place="below"><label>Low</label><labelAbbr>Low</labelAbbr></staffDef>
+</staffGrp></scoreDef>
+<section>
+<measure n="1" xml:id="m1">
+<staff n="1"><layer n="1">
+<note xml:id="mel1_1" pname="e" oct="4" dur="4" dots="1"><verse n="1"><syl wordpos="s">Jul,</syl></verse></note><note xml:id="mel1_2" pname="d" oct="4" dur="4" dots="1"><verse n="1"><syl wordpos="s">jul,</syl></verse></note>
+</layer></staff>
+<staff n="2"><layer n="1">
+<note xml:id="har1_1" pname="c" oct="4" dur="4" dots="1"></note><note xml:id="har1_2" pname="c" oct="4" dur="4" dots="1"></note>
+</layer></staff>
+<staff n="3"><layer n="1">
+<note xml:id="low1_1" pname="g" oct="3" dur="4" dots="1"><verse n="1"><syl wordpos="s">Jul,</syl></verse></note><note xml:id="low1_2" pname="g" oct="3" dur="4" dots="1" accid="s"><verse n="1"><syl wordpos="s">jul,</syl></verse></note>
+</layer></staff>
+<tempo staff="1" tstamp="1" place="above" mm="45" mm.unit="4"><rend glyph.auth="smufl">&#xE1D5;</rend> = 45</tempo>
+</measure>
+<measure n="2" xml:id="m2">
+<staff n="1"><layer n="1">
+<beam><note xml:id="mel2_1" pname="e" oct="4" dur="8" dots="1"><verse n="1"><syl wordpos="i" con="d">strå</syl></verse></note><note xml:id="mel2_2" pname="f" oct="4" dur="16"><verse n="1"><syl wordpos="m" con="d">lan</syl></verse></note><note xml:id="mel2_3" pname="g" oct="4" dur="8"><verse n="1"><syl wordpos="t">de</syl></verse></note></beam><note xml:id="mel2_4" pname="d" oct="4" dur="4" dots="1"><verse n="1"><syl wordpos="s">jul,</syl></verse></note>
+</layer></staff>
+<staff n="2"><layer n="1">
+<beam><note xml:id="har2_1" pname="c" oct="4" dur="8" dots="1"></note><note xml:id="har2_2" pname="c" oct="4" dur="16"></note><note xml:id="har2_3" pname="c" oct="4" dur="8"></note></beam><note xml:id="har2_4" pname="c" oct="4" dur="4" dots="1"></note>
+</layer></staff>
+<staff n="3"><layer n="1">
+<beam><note xml:id="low2_1" pname="g" oct="3" dur="8" dots="1"><accid accid="n" func="caution" enclose="paren"/><verse n="1"><syl wordpos="i" con="d">strå</syl></verse></note><note xml:id="low2_2" pname="g" oct="3" dur="16"><verse n="1"><syl wordpos="m" con="d">lan</syl></verse></note><note xml:id="low2_3" pname="g" oct="3" dur="8"><verse n="1"><syl wordpos="t">de</syl></verse></note></beam><note xml:id="low2_4" pname="g" oct="3" dur="4" dots="1" accid="s"><verse n="1"><syl wordpos="s">jul,</syl></verse></note>
+</layer></staff>
+</measure>
+<measure n="3" xml:id="m3">
+<staff n="1"><layer n="1">
+<beam><note xml:id="mel3_1" pname="e" oct="4" dur="8"><verse n="1"><syl wordpos="s">glans</syl></verse></note><note xml:id="mel3_2" pname="f" oct="4" dur="8"><verse n="1"><syl wordpos="i" con="d">ö</syl></verse></note><note xml:id="mel3_3" pname="g" oct="4" dur="8"><verse n="1"><syl wordpos="t">ver</syl></verse></note></beam><note xml:id="mel3_4" pname="g" oct="4" dur="4"><verse n="1"><syl wordpos="i" con="d">vi</syl></verse></note><note xml:id="mel3_5" pname="f" oct="4" dur="8"><verse n="1"><syl wordpos="t">ta</syl></verse></note>
+</layer></staff>
+<staff n="2"><layer n="1">
+<beam><note xml:id="har3_1" pname="c" oct="4" dur="8"></note><note xml:id="har3_2" pname="c" oct="4" dur="8"></note><note xml:id="har3_3" pname="c" oct="4" dur="8"></note></beam><note xml:id="har3_4" pname="c" oct="4" dur="4"></note><note xml:id="har3_5" pname="c" oct="4" dur="8"></note>
+</layer></staff>
+<staff n="3"><layer n="1">
+<beam><note xml:id="low3_1" pname="g" oct="3" dur="8"><accid accid="n" func="caution" enclose="paren"/><verse n="1"><syl wordpos="s">glans</syl></verse></note><note xml:id="low3_2" pname="a" oct="3" dur="8"><verse n="1"><syl wordpos="i" con="d">ö</syl></verse></note><note xml:id="low3_3" pname="b" oct="3" dur="8"><verse n="1"><syl wordpos="t">ver</syl></verse></note></beam><note xml:id="low3_4" pname="b" oct="3" dur="4"><verse n="1"><syl wordpos="i" con="d">vi</syl></verse></note><note xml:id="low3_5" pname="a" oct="3" dur="8"><verse n="1"><syl wordpos="t">ta</syl></verse></note>
+</layer></staff>
+</measure>
+<measure n="4" xml:id="m4">
+<staff n="1"><layer n="1">
+<note xml:id="mel4_1" pname="f" oct="4" dur="4" dots="1"><verse n="1"><syl wordpos="i" con="d">sko</syl></verse></note><note xml:id="mel4_2" pname="e" oct="4" dur="4" dots="1"><verse n="1"><syl wordpos="t">gar.</syl></verse></note>
+</layer></staff>
+<staff n="2"><layer n="1">
+<note xml:id="har4_1" pname="c" oct="4" dur="4"></note><note xml:id="har4_2" pname="b" oct="3" dur="8"></note><note xml:id="har4_3" pname="c" oct="4" dur="4" dots="1"></note>
+</layer></staff>
+<staff n="3"><layer n="1">
+<note xml:id="low4_1" pname="a" oct="3" dur="4"><verse n="1"><syl wordpos="i" con="d">sko</syl></verse></note><note xml:id="low4_2" pname="g" oct="3" dur="8" accid="s"></note><note xml:id="low4_3" pname="g" oct="3" dur="4" dots="1" accid="n"><verse n="1"><syl wordpos="t">gar.</syl></verse></note>
+</layer></staff>
+</measure>
+<sb/>
+<measure n="5" xml:id="m5">
+<staff n="1"><layer n="1">
+<beam><note xml:id="mel5_1" pname="a" oct="4" dur="8" dots="1"><verse n="1"><syl wordpos="i" con="d">him</syl></verse></note><note xml:id="mel5_2" pname="a" oct="4" dur="16"><verse n="1"><syl wordpos="m" con="d">me</syl></verse></note><note xml:id="mel5_3" pname="a" oct="4" dur="8"><verse n="1"><syl wordpos="t">lens</syl></verse></note></beam><beam><note xml:id="mel5_4" pname="g" oct="4" dur="8"><verse n="1"><syl wordpos="i" con="d">kro</syl></verse></note><note xml:id="mel5_5" pname="d" oct="4" dur="8"><verse n="1"><syl wordpos="t">nor</syl></verse></note><note xml:id="mel5_6" pname="g" oct="4" dur="8"><verse n="1"><syl wordpos="s">med</syl></verse></note></beam>
+</layer></staff>
+<staff n="2"><layer n="1">
+<beam><note xml:id="har5_1" pname="c" oct="4" dur="8" dots="1"></note><note xml:id="har5_2" pname="c" oct="4" dur="16"></note><note xml:id="har5_3" pname="f" oct="4" dur="8"></note></beam><beam><note xml:id="har5_4" pname="d" oct="4" dur="8"></note><note xml:id="har5_5" pname="b" oct="3" dur="8"></note><note xml:id="har5_6" pname="d" oct="4" dur="8"></note></beam>
+</layer></staff>
+<staff n="3"><layer n="1">
+<beam><note xml:id="low5_1" pname="f" oct="3" dur="8" dots="1"><verse n="1"><syl wordpos="i" con="d">him</syl></verse></note><note xml:id="low5_2" pname="f" oct="3" dur="16"><verse n="1"><syl wordpos="m" con="d">me</syl></verse></note><note xml:id="low5_3" pname="c" oct="4" dur="8"><verse n="1"><syl wordpos="t">lens</syl></verse></note></beam><beam><note xml:id="low5_4" pname="b" oct="3" dur="8"><verse n="1"><syl wordpos="i" con="d">kro</syl></verse></note><note xml:id="low5_5" pname="g" oct="3" dur="8"><verse n="1"><syl wordpos="t">nor</syl></verse></note><note xml:id="low5_6" pname="b" oct="3" dur="8"><verse n="1"><syl wordpos="s">med</syl></verse></note></beam>
+</layer></staff>
+</measure>
+<measure n="6" xml:id="m6">
+<staff n="1"><layer n="1">
+<beam><note xml:id="mel6_1" pname="a" oct="4" dur="8" dots="1"><verse n="1"><syl wordpos="i" con="d">gnist</syl></verse></note><note xml:id="mel6_2" pname="b" oct="4" dur="16"><verse n="1"><syl wordpos="m" con="d">ran</syl></verse></note><note xml:id="mel6_3" pname="a" oct="4" dur="8"><verse n="1"><syl wordpos="t">de</syl></verse></note></beam><note xml:id="mel6_4" pname="g" oct="4" dur="4" dots="1"><verse n="1"><syl wordpos="s">ljus</syl></verse></note>
+</layer></staff>
+<staff n="2"><layer n="1">
+<beam><note xml:id="har6_1" pname="f" oct="4" dur="8" dots="1"></note><note xml:id="har6_2" pname="f" oct="4" dur="16"></note><note xml:id="har6_3" pname="f" oct="4" dur="8"></note></beam><note xml:id="har6_4" pname="d" oct="4" dur="4" dots="1"></note>
+</layer></staff>
+<staff n="3"><layer n="1">
+<beam><note xml:id="low6_1" pname="c" oct="4" dur="8" dots="1"><verse n="1"><syl wordpos="i" con="d">gnist</syl></verse></note><note xml:id="low6_2" pname="d" oct="4" dur="16"><verse n="1"><syl wordpos="m" con="d">ran</syl></verse></note><note xml:id="low6_3" pname="c" oct="4" dur="8"><verse n="1"><syl wordpos="t">de</syl></verse></note></beam><note xml:id="low6_4" pname="b" oct="3" dur="4" dots="1"><verse n="1"><syl wordpos="s">ljus</syl></verse></note>
+</layer></staff>
+</measure>
+<measure n="7" xml:id="m7">
+<staff n="1"><layer n="1">
+<beam><note xml:id="mel7_1" pname="f" oct="4" dur="8" dots="1"><verse n="1"><syl wordpos="i" con="d">glim</syl></verse></note><note xml:id="mel7_2" pname="f" oct="4" dur="16"><verse n="1"><syl wordpos="m" con="d">man</syl></verse></note><note xml:id="mel7_3" pname="f" oct="4" dur="8"><verse n="1"><syl wordpos="t">de</syl></verse></note></beam><beam><note xml:id="mel7_4" pname="e" oct="4" dur="8"><verse n="1"><syl wordpos="i" con="d">bå</syl></verse></note><note xml:id="mel7_5" pname="b" oct="3" dur="8"><verse n="1"><syl wordpos="t">gar</syl></verse></note><note xml:id="mel7_6" pname="e" oct="4" dur="8"><verse n="1"><syl wordpos="s">i</syl></verse></note></beam>
+</layer></staff>
+<staff n="2"><layer n="1">
+<beam><note xml:id="har7_1" pname="d" oct="4" dur="8" dots="1"></note><note xml:id="har7_2" pname="d" oct="4" dur="16"></note><note xml:id="har7_3" pname="c" oct="4" dur="8"></note></beam><beam><note xml:id="har7_4" pname="b" oct="3" dur="8"></note><note xml:id="har7_5" pname="g" oct="3" dur="8" accid="s"></note><note xml:id="har7_6" pname="b" oct="3" dur="8"></note></beam>
+</layer></staff>
+<staff n="3"><layer n="1">
+<beam><note xml:id="low7_1" pname="a" oct="3" dur="8" dots="1"><verse n="1"><syl wordpos="i" con="d">glim</syl></verse></note><note xml:id="low7_2" pname="b" oct="3" dur="16"><verse n="1"><syl wordpos="m" con="d">man</syl></verse></note><note xml:id="low7_3" pname="a" oct="3" dur="8"><verse n="1"><syl wordpos="t">de</syl></verse></note></beam><beam><note xml:id="low7_4" pname="g" oct="3" dur="8" accid="s"><verse n="1"><syl wordpos="i" con="d">bå</syl></verse></note><note xml:id="low7_5" pname="e" oct="3" dur="8"><verse n="1"><syl wordpos="t">gar</syl></verse></note><note xml:id="low7_6" pname="g" oct="3" dur="8" accid.ges="s"><verse n="1"><syl wordpos="s">i</syl></verse></note></beam>
+</layer></staff>
+</measure>
+<sb/>
+<measure n="8" xml:id="m8">
+<staff n="1"><layer n="1">
+<beam><note xml:id="mel8_1" pname="f" oct="4" dur="8" dots="1"><verse n="1"><syl wordpos="i" con="d">al</syl></verse></note><note xml:id="mel8_2" pname="g" oct="4" dur="16"><verse n="1"><syl wordpos="t">la</syl></verse></note><note xml:id="mel8_3" pname="f" oct="4" dur="8"><verse n="1"><syl wordpos="s">Guds</syl></verse></note></beam><note xml:id="mel8_4" pname="e" oct="4" dur="4" dots="1"><verse n="1"><syl wordpos="s">hus,</syl></verse></note>
+</layer></staff>
+<staff n="2"><layer n="1">
+<beam><note xml:id="har8_1" pname="d" oct="4" dur="8" dots="1"></note><note xml:id="har8_2" pname="d" oct="4" dur="16"></note><note xml:id="har8_3" pname="c" oct="4" dur="8"></note></beam><note xml:id="har8_4" pname="b" oct="3" dur="4" dots="1"></note>
+</layer></staff>
+<staff n="3"><layer n="1">
+<beam><note xml:id="low8_1" pname="a" oct="3" dur="8" dots="1"><verse n="1"><syl wordpos="i" con="d">al</syl></verse></note><note xml:id="low8_2" pname="b" oct="3" dur="16"><verse n="1"><syl wordpos="t">la</syl></verse></note><note xml:id="low8_3" pname="a" oct="3" dur="8"><verse n="1"><syl wordpos="s">Guds</syl></verse></note></beam><note xml:id="low8_4" pname="g" oct="3" dur="4" dots="1" accid="s"><verse n="1"><syl wordpos="s">hus,</syl></verse></note>
+</layer></staff>
+</measure>
+<measure n="9" xml:id="m9">
+<staff n="1"><layer n="1">
+<beam><note xml:id="mel9_1" pname="c" oct="4" dur="8" dots="1"><verse n="1"><syl wordpos="s">psalm</syl></verse></note><note xml:id="mel9_2" pname="c" oct="4" dur="16"><verse n="1"><syl wordpos="s">som</syl></verse></note><note xml:id="mel9_3" pname="c" oct="4" dur="8"><verse n="1"><syl wordpos="s">är</syl></verse></note></beam><beam><note xml:id="mel9_4" pname="g" oct="4" dur="8" dots="1"><verse n="1"><syl wordpos="i" con="d">sjung</syl></verse></note><note xml:id="mel9_5" pname="g" oct="4" dur="16"><verse n="1"><syl wordpos="t">en</syl></verse></note><note xml:id="mel9_6" pname="g" oct="4" dur="8"><verse n="1"><syl wordpos="s">från</syl></verse></note></beam>
+</layer></staff>
+<staff n="2"><layer n="1">
+<beam><note xml:id="har9_1" pname="c" oct="4" dur="8" dots="1"></note><note xml:id="har9_2" pname="b" oct="3" dur="16"></note><note xml:id="har9_3" pname="a" oct="3" dur="8"></note></beam><beam><note xml:id="har9_4" pname="c" oct="4" dur="8" dots="1"></note><note xml:id="har9_5" pname="b" oct="3" dur="16"></note><note xml:id="har9_6" pname="c" oct="4" dur="8"></note></beam>
+</layer></staff>
+<staff n="3"><layer n="1">
+<beam><note xml:id="low9_1" pname="a" oct="3" dur="8" dots="1"><verse n="1"><syl wordpos="s">psalm</syl></verse></note><note xml:id="low9_2" pname="g" oct="3" dur="16"><accid accid="n" func="caution" enclose="paren"/><verse n="1"><syl wordpos="s">som</syl></verse></note><note xml:id="low9_3" pname="f" oct="3" dur="8"><verse n="1"><syl wordpos="s">är</syl></verse></note></beam><beam><note xml:id="low9_4" pname="g" oct="3" dur="8" dots="1"><verse n="1"><syl wordpos="i" con="d">sjung</syl></verse></note><note xml:id="low9_5" pname="f" oct="3" dur="16"><verse n="1"><syl wordpos="t">en</syl></verse></note><note xml:id="low9_6" pname="g" oct="3" dur="8"><verse n="1"><syl wordpos="s">från</syl></verse></note></beam>
+</layer></staff>
+</measure>
+<measure n="10" xml:id="m10">
+<staff n="1"><layer n="1">
+<note xml:id="mel10_1" pname="e" oct="4" dur="4"><verse n="1"><syl wordpos="s">tid</syl></verse></note><note xml:id="mel10_2" pname="e" oct="4" dur="8"><verse n="1"><syl wordpos="s">till</syl></verse></note><note xml:id="mel10_3" pname="c" oct="4" dur="4" dots="1"><verse n="1"><syl wordpos="s">tid,</syl></verse></note>
+</layer></staff>
+<staff n="2"><layer n="1">
+<note xml:id="har10_1" pname="b" oct="3" dur="4"></note><note xml:id="har10_2" pname="b" oct="3" dur="8"></note><note xml:id="har10_3" pname="a" oct="3" dur="4" dots="1"></note>
+</layer></staff>
+<staff n="3"><layer n="1">
+<note xml:id="low10_1" pname="g" oct="3" dur="4"><verse n="1"><syl wordpos="s">tid</syl></verse></note><note xml:id="low10_2" pname="g" oct="3" dur="8"><verse n="1"><syl wordpos="s">till</syl></verse></note><note xml:id="low10_3" pname="f" oct="3" dur="4" dots="1"><verse n="1"><syl wordpos="s">tid,</syl></verse></note>
+</layer></staff>
+</measure>
+<sb/>
+<measure n="11" xml:id="m11">
+<staff n="1"><layer n="1">
+<beam><note xml:id="mel11_1" pname="d" oct="4" dur="8" dots="1"><verse n="1"><syl wordpos="i" con="d">e</syl></verse></note><note xml:id="mel11_2" pname="c" oct="4" dur="16"><verse n="1"><syl wordpos="m" con="d">vi</syl></verse></note><note xml:id="mel11_3" pname="d" oct="4" dur="8"><verse n="1"><syl wordpos="t">ga</syl></verse></note></beam><beam><note xml:id="mel11_4" pname="e" oct="4" dur="8" dots="1"><verse n="1"><syl wordpos="i" con="d">läng</syl></verse></note><note xml:id="mel11_5" pname="d" oct="4" dur="16"><verse n="1"><syl wordpos="t">tan</syl></verse></note><note xml:id="mel11_6" pname="c" oct="4" dur="8"><verse n="1"><syl wordpos="s">till</syl></verse></note></beam>
+</layer></staff>
+<staff n="2"><layer n="1">
+<beam><note xml:id="har11_1" pname="a" oct="3" dur="8" dots="1"></note><note xml:id="har11_2" pname="a" oct="3" dur="16"></note><note xml:id="har11_3" pname="b" oct="3" dur="8"></note></beam><beam><note xml:id="har11_4" pname="c" oct="4" dur="8" dots="1"></note><note xml:id="har11_5" pname="b" oct="3" dur="16"></note><note xml:id="har11_6" pname="a" oct="3" dur="8"></note></beam>
+</layer></staff>
+<staff n="3"><layer n="1">
+<beam><note xml:id="low11_1" pname="f" oct="3" dur="8" dots="1"><verse n="1"><syl wordpos="i" con="d">e</syl></verse></note><note xml:id="low11_2" pname="f" oct="3" dur="16"><verse n="1"><syl wordpos="m" con="d">vi</syl></verse></note><note xml:id="low11_3" pname="f" oct="3" dur="8"><verse n="1"><syl wordpos="t">ga</syl></verse></note></beam><beam><note xml:id="low11_4" pname="a" oct="3" dur="8" dots="1"><verse n="1"><syl wordpos="i" con="d">läng</syl></verse></note><chord xml:id="low11_5" dur="16"><note xml:id="low11_5a" pname="f" oct="3"></note><note xml:id="low11_5b" pname="a" oct="3"><verse n="1"><syl wordpos="t">tan</syl></verse></note></chord><chord xml:id="low11_6" dur="8"><note xml:id="low11_6a" pname="e" oct="3"></note><note xml:id="low11_6b" pname="a" oct="3"><verse n="1"><syl wordpos="s">till</syl></verse></note></chord></beam>
+</layer></staff>
+</measure>
+<measure n="12" xml:id="m12">
+<staff n="1"><layer n="1">
+<beam><note xml:id="mel12_1" pname="d" oct="4" dur="8" dots="1"><verse n="1"><syl wordpos="s" con="u">ljus</syl></verse></note><note xml:id="mel12_2" pname="c" oct="4" dur="16"></note><note xml:id="mel12_3" pname="d" oct="4" dur="8"><verse n="1"><syl wordpos="s">och</syl></verse></note></beam><note xml:id="mel12_4" pname="e" oct="4" dur="4" dots="1"><verse n="1"><syl wordpos="s">frid!</syl></verse></note>
+</layer></staff>
+<staff n="2"><layer n="1">
+<beam><note xml:id="har12_1" pname="a" oct="3" dur="8" dots="1"></note><note xml:id="har12_2" pname="a" oct="3" dur="16"></note><note xml:id="har12_3" pname="b" oct="3" dur="8"></note></beam><note xml:id="har12_4" pname="b" oct="3" dur="4" dots="1"></note>
+</layer></staff>
+<staff n="3"><layer n="1">
+<beam><note xml:id="low12_1" pname="a" oct="3" dur="8" dots="1"><verse n="1"><syl wordpos="s" con="u">ljus</syl></verse></note><note xml:id="low12_2" pname="a" oct="3" dur="16"></note><note xml:id="low12_3" pname="a" oct="3" dur="8"><verse n="1"><syl wordpos="s">och</syl></verse></note></beam><note xml:id="low12_4" pname="g" oct="3" dur="4" dots="1" accid="s"><verse n="1"><syl wordpos="s">frid!</syl></verse></note>
+</layer></staff>
+<tie staff="2" startid="#har12_1" endid="#har12_2"/>
+<tie staff="3" startid="#low12_1" endid="#low12_2"/>
+</measure>
+<measure n="13" xml:id="m13">
+<staff n="1"><layer n="1">
+<note xml:id="mel13_1" pname="e" oct="4" dur="4" dots="1"><verse n="1"><syl wordpos="s">Jul,</syl></verse></note><note xml:id="mel13_2" pname="d" oct="4" dur="4" dots="1"><verse n="1"><syl wordpos="s">jul,</syl></verse></note>
+</layer></staff>
+<staff n="2"><layer n="1">
+<note xml:id="har13_1" pname="c" oct="4" dur="4" dots="1"></note><note xml:id="har13_2" pname="c" oct="4" dur="4" dots="1"></note>
+</layer></staff>
+<staff n="3"><layer n="1">
+<note xml:id="low13_1" pname="g" oct="3" dur="4" dots="1"><accid accid="n" func="caution" enclose="paren"/><verse n="1"><syl wordpos="s">Jul,</syl></verse></note><note xml:id="low13_2" pname="g" oct="3" dur="4" dots="1" accid="s"><verse n="1"><syl wordpos="s">jul,</syl></verse></note>
+</layer></staff>
+</measure>
+<measure n="14" xml:id="m14">
+<staff n="1"><layer n="1">
+<beam><note xml:id="mel14_1" pname="e" oct="4" dur="8" dots="1"><verse n="1"><syl wordpos="i" con="d">strå</syl></verse></note><note xml:id="mel14_2" pname="f" oct="4" dur="16"><verse n="1"><syl wordpos="m" con="d">lan</syl></verse></note><note xml:id="mel14_3" pname="g" oct="4" dur="8"><verse n="1"><syl wordpos="t">de</syl></verse></note></beam><note xml:id="mel14_4" pname="d" oct="4" dur="4" dots="1"><verse n="1"><syl wordpos="s">jul:</syl></verse></note>
+</layer></staff>
+<staff n="2"><layer n="1">
+<beam><note xml:id="har14_1" pname="c" oct="4" dur="8" dots="1"></note><note xml:id="har14_2" pname="c" oct="4" dur="16"></note><note xml:id="har14_3" pname="c" oct="4" dur="8"></note></beam><note xml:id="har14_4" pname="c" oct="4" dur="4" dots="1"></note>
+</layer></staff>
+<staff n="3"><layer n="1">
+<beam><note xml:id="low14_1" pname="g" oct="3" dur="8" dots="1"><accid accid="n" func="caution" enclose="paren"/><verse n="1"><syl wordpos="i" con="d">strå</syl></verse></note><note xml:id="low14_2" pname="g" oct="3" dur="16"><verse n="1"><syl wordpos="m" con="d">lan</syl></verse></note><note xml:id="low14_3" pname="g" oct="3" dur="8"><verse n="1"><syl wordpos="t">de</syl></verse></note></beam><note xml:id="low14_4" pname="g" oct="3" dur="4" dots="1" accid="s"><verse n="1"><syl wordpos="s">jul:</syl></verse></note>
+</layer></staff>
+</measure>
+<sb/>
+<measure n="15" xml:id="m15">
+<staff n="1"><layer n="1">
+<beam><note xml:id="mel15_1" pname="e" oct="4" dur="8"><verse n="1"><syl wordpos="s">glans</syl></verse></note><note xml:id="mel15_2" pname="f" oct="4" dur="8"><verse n="1"><syl wordpos="i" con="d">ö</syl></verse></note><note xml:id="mel15_3" pname="g" oct="4" dur="8"><verse n="1"><syl wordpos="t">ver</syl></verse></note></beam><note xml:id="mel15_4" pname="g" oct="4" dur="4"><verse n="1"><syl wordpos="i" con="d">vi</syl></verse></note><note xml:id="mel15_5" pname="f" oct="4" dur="8"><verse n="1"><syl wordpos="t">ta</syl></verse></note>
+</layer></staff>
+<staff n="2"><layer n="1">
+<beam><note xml:id="har15_1" pname="c" oct="4" dur="8"></note><note xml:id="har15_2" pname="c" oct="4" dur="8"></note><note xml:id="har15_3" pname="c" oct="4" dur="8"></note></beam><note xml:id="har15_4" pname="c" oct="4" dur="4"></note><note xml:id="har15_5" pname="c" oct="4" dur="8"></note>
+</layer></staff>
+<staff n="3"><layer n="1">
+<beam><note xml:id="low15_1" pname="g" oct="3" dur="8"><accid accid="n" func="caution" enclose="paren"/><verse n="1"><syl wordpos="s">glans</syl></verse></note><note xml:id="low15_2" pname="a" oct="3" dur="8"><verse n="1"><syl wordpos="i" con="d">ö</syl></verse></note><note xml:id="low15_3" pname="b" oct="3" dur="8"><verse n="1"><syl wordpos="t">ver</syl></verse></note></beam><note xml:id="low15_4" pname="b" oct="3" dur="4"><verse n="1"><syl wordpos="i" con="d">vi</syl></verse></note><note xml:id="low15_5" pname="a" oct="3" dur="8"><verse n="1"><syl wordpos="t">ta</syl></verse></note>
+</layer></staff>
+</measure>
+<measure n="16" xml:id="m16" right="end">
+<staff n="1"><layer n="1">
+<note xml:id="mel16_1" pname="d" oct="4" dur="4" dots="1"><verse n="1"><syl wordpos="i" con="d">sko</syl></verse></note><note xml:id="mel16_2" pname="c" oct="4" dur="4" dots="1"><verse n="1"><syl wordpos="t">gar!</syl></verse></note>
+</layer></staff>
+<staff n="2"><layer n="1">
+<note xml:id="har16_1" pname="b" oct="3" dur="4" dots="1"></note><chord xml:id="har16_2" dur="4" dots="1"><note xml:id="har16_2a" pname="g" oct="3"></note><note xml:id="har16_2b" pname="c" oct="4"></note></chord>
+</layer></staff>
+<staff n="3"><layer n="1">
+<beam><note xml:id="low16_1" pname="a" oct="3" dur="8"><verse n="1"><syl wordpos="i" con="d">sko</syl></verse></note><note xml:id="low16_2" pname="g" oct="3" dur="8"></note><note xml:id="low16_3" pname="f" oct="3" dur="8"></note></beam><chord xml:id="low16_4" dur="4" dots="1"><note xml:id="low16_4a" pname="e" oct="3"></note><note xml:id="low16_4b" pname="g" oct="3"><verse n="1"><syl wordpos="t">gar!</syl></verse></note></chord>
+</layer></staff>
+</measure>
+</section></score></mdiv></body></music></mei>

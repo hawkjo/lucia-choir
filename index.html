@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Lucia Choir Practice</title>
+<meta name="description" content="Practice tracks for the Lucia choir: sheet music for Melody, Harmony and Low with a moving marker, part-by-part mixing and starting notes.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 22 34'%3E%3Cpath d='M11 1c3 6 8 9 8 15a8 8 0 0 1-16 0c0-4 3-6 4-10 1 3 2 4 3 4 0-3 0-6 1-9z' fill='%23e3961c'/%3E%3Crect x='8' y='26' width='6' height='8' rx='1' fill='%23121c2e'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Figtree:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand">
+      <svg class="flame" viewBox="0 0 22 34" aria-hidden="true">
+        <path d="M11 1c3 6 8 9 8 15a8 8 0 0 1-16 0c0-4 3-6 4-10 1 3 2 4 3 4 0-3 0-6 1-9z" fill="var(--candle)"/>
+        <rect x="8" y="26" width="6" height="8" rx="1" fill="var(--night-ink)"/>
+      </svg>
+      <div>
+        <p class="brand-name">Lucia Choir</p>
+        <p class="brand-sub">Practice tracks</p>
+      </div>
+    </div>
+    <nav class="songs" id="songList" aria-label="Songs"></nav>
+    <nav class="mobile-songs" id="songChips" aria-label="Songs"></nav>
+    <div class="side-help">
+      <p><b>Click a note</b> in the music to move the marker there.</p>
+      <p><b>Give notes</b> plays each part’s starting note, Low → Harmony → Melody, like a pitch pipe.</p>
+      <p><b>Hide notes</b> leaves only the words, for singing from memory.</p>
+      <p><b>Swedish songs</b> have Hanna’s sung pronunciation and a guide under the title.</p>
+      <p><b>Space</b> starts and pauses.</p>
+    </div>
+  </aside>
+
+  <main class="main">
+    <div class="main-inner">
+      <header class="song-head">
+        <div>
+          <h1 id="songTitle">Loading…</h1>
+          <p class="song-meta" id="songMeta"></p>
+        </div>
+        <div class="head-actions">
+          <button class="btn" id="hideBtn" type="button" aria-pressed="false" title="Hide the notes and keep the words, for singing from memory">
+            <svg viewBox="0 0 24 24" aria-hidden="true" id="hideIcon"><path d="M2.5 12s3.5-6.5 9.5-6.5 9.5 6.5 9.5 6.5-3.5 6.5-9.5 6.5S2.5 12 2.5 12z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M4 20 20 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+            <span id="hideText">Hide notes</span>
+          </button>
+          <a class="btn" id="pdfBtn" href="#" download>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0-5-5m5 5 5-5M5 20h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Download PDF
+          </a>
+          <a class="btn" id="mp3Btn" href="#" download title="All parts equal, to listen to anywhere">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0-5-5m5 5 5-5M5 20h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Download MP3
+          </a>
+        </div>
+      </header>
+
+      <section class="pron" id="pron" aria-label="Pronunciation" hidden>
+        <div class="pron-bar">
+          <div class="pron-label">
+            <b>Swedish pronunciation</b>
+            <span id="pronCredit"></span>
+          </div>
+          <audio id="pronAudio" controls preload="metadata"></audio>
+          <button class="btn btn-small" id="pronToggle" type="button" aria-expanded="false" aria-controls="pronGuide">Show the words</button>
+        </div>
+        <div class="pron-guide" id="pronGuide" hidden>
+          <p class="pron-key">Say it like the grey line. CAPITALS mark the stressed syllable.</p>
+          <ol class="pron-lines" id="pronLines"></ol>
+          <p class="pron-note" id="pronNote"></p>
+          <dl class="pron-tips" id="pronTips"></dl>
+        </div>
+      </section>
+
+      <section class="controls" id="controls" aria-label="Practice controls">
+        <div class="ctl-row">
+          <span class="ctl-label" id="voiceLabel">My part</span>
+          <div class="voices" role="radiogroup" aria-labelledby="voiceLabel" id="voices">
+            <button class="voice-btn" role="radio" id="voice-0" data-v="0" aria-checked="true">Melody<span class="pip"></span></button>
+            <button class="voice-btn" role="radio" id="voice-1" data-v="1" aria-checked="false">Harmony<span class="pip"></span></button>
+            <button class="voice-btn" role="radio" id="voice-2" data-v="2" aria-checked="false">Low<span class="pip"></span></button>
+          </div>
+        </div>
+
+        <div class="mix">
+          <label class="ctl-label" for="mix">Mix</label>
+          <div class="mix-body">
+            <input type="range" id="mix" min="1" max="5" step="1" value="3" aria-describedby="mixCaption">
+            <div class="ticks" id="ticks"></div>
+            <p class="mix-caption" id="mixCaption">Selected part</p>
+          </div>
+        </div>
+
+        <div class="ctl-row transport">
+          <button class="btn btn-notes" id="notesBtn" title="Play each part’s note at the marker: Low, Harmony, Melody">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="2.2" fill="currentColor"/><path d="M12 3.5v3M12 17.5v3M3.5 12h3M17.5 12h3M6 6l2.1 2.1M15.9 15.9 18 18M18 6l-2.1 2.1M8.1 15.9 6 18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+            <span class="label-long">Give notes</span><span class="label-short">Notes</span>
+          </button>
+          <button class="btn btn-play" id="playBtn" aria-label="Play">
+            <svg viewBox="0 0 24 24" aria-hidden="true" id="playIcon"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg>
+            <span id="playText">Play</span>
+          </button>
+          <button class="btn btn-icon" id="rewindBtn" title="Back to the beginning" aria-label="Back to the beginning">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5v14M19 5.5v13L9 12z" fill="currentColor" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="status" id="status" aria-live="polite"></div>
+        </div>
+      </section>
+
+      <section class="paper-wrap" aria-label="Sheet music">
+        <div class="paper" id="paper">
+          <div class="bands" id="bands"></div>
+          <div class="svg-host" id="svgHost"><div class="loading">Loading the music…</div></div>
+          <div class="overlay"><div class="ghost" id="ghost"></div><div class="marker" id="marker" hidden></div></div>
+        </div>
+      </section>
+      <p class="foot" id="foot">Playback is a cappella: no introduction, it starts right at the marker.</p>
+    </div>
+  </main>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>

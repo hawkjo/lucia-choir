@@ -1,0 +1,167 @@
+[
+ {
+  "id": "sankta-lucia",
+  "title": "Sankta Lucia",
+  "short": "Sankta Lucia",
+  "credits": [],
+  "subtitle": null,
+  "duration": 54.0,
+  "passes": 2,
+  "pronunciation": {
+   "audio": "audio/sankta-lucia-pronunciation.mp3",
+   "credit": "Sung by Hanna Norbäck",
+   "lines": [
+    [
+     "Sankta Lucia, ljusklara hägring,",
+     "SAHNK-tah loo-SEE-ah, YOOS-klah-rah HEHG-ring"
+    ],
+    [
+     "sprid i vår vinternatt glans av din fägring.",
+     "spreed ee vohr VIN-ter-naht glahns ahv deen FEHG-ring"
+    ],
+    [
+     "Drömmar av vingesus under oss sia,",
+     "DRÖM-mar ahv VING-eh-soos UN-der oss SEE-ah"
+    ],
+    [
+     "tänd dina vita ljus, Sankta Lucia.",
+     "tend DEE-nah VEE-tah yoos, SAHNK-tah loo-SEE-ah"
+    ]
+   ],
+   "note": "The last two lines are sung twice.",
+   "tips": [
+    [
+     "lj",
+     "sounds like “y”, the l is silent: ljus = yoos, ljusklara = YOOS-klah-rah"
+    ],
+    [
+     "å",
+     "“oh”: vår = vohr"
+    ],
+    [
+     "ä",
+     "“eh”: hägring, fägring, tänd"
+    ],
+    [
+     "ö",
+     "the vowel in “bird”, with rounded lips: drömmar"
+    ],
+    [
+     "u",
+     "“oo” with the lips pushed forward: Lucia, ljus, vingesus"
+    ],
+    [
+     "i",
+     "always “ee”: sprid, i, din, vita, sia"
+    ]
+   ]
+  }
+ },
+ {
+  "id": "silent-night",
+  "title": "Silent Night / Stille Nacht",
+  "short": "Silent Night",
+  "credits": [
+   "Franz Gruber",
+   "arr. John Rutter",
+   "bearb. Hanna Norbäck"
+  ],
+  "subtitle": "without solo",
+  "duration": 43.2,
+  "passes": 1,
+  "pronunciation": null
+ },
+ {
+  "id": "jul-jul",
+  "title": "Jul, jul, strålande jul",
+  "short": "Jul, jul",
+  "credits": [
+   "Edvard Evers",
+   "Gustaf Nordqvist",
+   "bearb. Hanna Norbäck"
+  ],
+  "subtitle": "in C major",
+  "duration": 64.0,
+  "passes": 1,
+  "pronunciation": {
+   "audio": "audio/jul-jul-pronunciation.mp3",
+   "credit": "Sung by Hanna Norbäck",
+   "lines": [
+    [
+     "Jul, jul, strålande jul,",
+     "yool, yool, STROH-lahn-deh yool,"
+    ],
+    [
+     "glans över vita skogar,",
+     "glahns ÖÖ-ver VEE-tah SKOO-gar,"
+    ],
+    [
+     "himmelens kronor med gnistrande ljus,",
+     "HIM-meh-lens KROO-nor mehd GNIST-rahn-deh yoos,"
+    ],
+    [
+     "glimmande bågar i alla Guds hus,",
+     "GLIM-mahn-deh BOH-gar ee AH-lah gudds hoos,"
+    ],
+    [
+     "psalm, som är sjungen från tid till tid,",
+     "sahlm, som air HWUNG-en frohn teed till teed,"
+    ],
+    [
+     "eviga längtan till ljus och frid!",
+     "EH-vi-gah LENG-tahn till yoos ock freed!"
+    ],
+    [
+     "Jul, jul, strålande jul: glans över vita skogar!",
+     "yool, yool, STROH-lahn-deh yool: glahns ÖÖ-ver VEE-tah SKOO-gar!"
+    ]
+   ],
+   "note": null,
+   "tips": [
+    [
+     "j, lj",
+     "sound like “y”, the l is silent: jul = yool, ljus = yoos"
+    ],
+    [
+     "å",
+     "“oh”: strålande, bågar, från"
+    ],
+    [
+     "o",
+     "“oo” in skogar and kronor: SKOO-gar, KROO-nor"
+    ],
+    [
+     "sj",
+     "a soft, breathy sound between “sh” and “hw”: sjungen"
+    ],
+    [
+     "psalm",
+     "the p is silent: sahlm"
+    ],
+    [
+     "gn",
+     "say the g too: gnistrande = g-NIST-rahn-deh"
+    ],
+    [
+     "-nde",
+     "the final e is sung: STROH-lahn-deh, GLIM-mahn-deh"
+    ]
+   ]
+  }
+ },
+ {
+  "id": "bleak-midwinter",
+  "title": "In the Bleak Midwinter",
+  "short": "Bleak Midwinter",
+  "credits": [
+   "Words: Christina Rossetti (1872)",
+   "verses 1, 4 and 5",
+   "Music: CRANHAM, Gustav Holst (1906)",
+   "SAB arrangement after Holst's harmony"
+  ],
+  "subtitle": null,
+  "duration": 176.0378,
+  "passes": 3,
+  "pronunciation": null
+ }
+]
