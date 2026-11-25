@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Figtree:wght@400;500;600;700&display=swap">
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style.css?v=18bc1e7d">
 </head>
 <body>
 <div class="app">
@@ -31,6 +31,8 @@
       <p><b>Give notes</b> plays each part’s starting note, Low → Harmony → Melody, like a pitch pipe.</p>
       <p><b>Hide notes</b> leaves only the words, for singing from memory.</p>
       <p><b>Swedish songs</b> have Hanna’s sung pronunciation and a guide under the title.</p>
+      <p><b>Count-in</b> gives one bar of beats before the music, as soft ticks, numbers at the marker, or both.</p>
+      <p><b>Speed</b> is remembered for each song.</p>
       <p><b>Space</b> starts and pauses.</p>
     </div>
   </aside>
@@ -94,6 +96,13 @@
           </div>
         </div>
 
+        <div class="ctl-row speed">
+          <label class="ctl-label" for="speed">Speed</label>
+          <input type="range" id="speed" min="50" max="120" step="5" value="100" aria-describedby="speedOut">
+          <output id="speedOut" for="speed">100%</output>
+          <button class="btn btn-small" id="speedReset" type="button" hidden>Back to 100%</button>
+        </div>
+
         <div class="ctl-row transport">
           <button class="btn btn-notes" id="notesBtn" title="Play each part’s note at the marker: Low, Harmony, Melody">
             <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="2.2" fill="currentColor"/><path d="M12 3.5v3M12 17.5v3M3.5 12h3M17.5 12h3M6 6l2.1 2.1M15.9 15.9 18 18M18 6l-2.1 2.1M8.1 15.9 6 18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
@@ -106,6 +115,17 @@
           <button class="btn btn-icon" id="rewindBtn" title="Back to the beginning" aria-label="Back to the beginning">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5v14M19 5.5v13L9 12z" fill="currentColor" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
           </button>
+          <div class="countin" role="group" aria-labelledby="countinLabel">
+            <span class="countin-label" id="countinLabel">Count-in</span>
+            <button class="toggle" id="cueSound" type="button" aria-pressed="true" title="Soft ticks on the beats of one bar before the music starts">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z" fill="currentColor"/><path d="M15.5 9a4.2 4.2 0 0 1 0 6M18 6.5a8 8 0 0 1 0 11" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+              Sound
+            </button>
+            <button class="toggle" id="cueVisual" type="button" aria-pressed="true" title="Beat numbers at the marker for one bar before the music starts">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M10.2 9.2 12.6 8v8.2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Visual
+            </button>
+          </div>
           <div class="status" id="status" aria-live="polite"></div>
         </div>
       </section>
@@ -114,14 +134,14 @@
         <div class="paper" id="paper">
           <div class="bands" id="bands"></div>
           <div class="svg-host" id="svgHost"><div class="loading">Loading the music…</div></div>
-          <div class="overlay"><div class="ghost" id="ghost"></div><div class="marker" id="marker" hidden></div></div>
+          <div class="overlay"><div class="ghost" id="ghost"></div><div class="marker" id="marker" hidden></div><div class="count" id="count" aria-hidden="true" hidden></div></div>
         </div>
       </section>
-      <p class="foot" id="foot">Playback is a cappella: no introduction, it starts right at the marker.</p>
+      <p class="foot" id="foot">Playback is a cappella: after the count-in it starts right at the marker.</p>
     </div>
   </main>
 </div>
 
-<script src="app.js"></script>
+<script src="app.js?v=55eeeb4d"></script>
 </body>
 </html>

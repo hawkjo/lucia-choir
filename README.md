@@ -4,9 +4,11 @@
 
 Sheet music for each song with a moving marker, a five-step mix per part
 (only my part → everyone except my part), starting notes like a pitch pipe,
-a "Hide notes" view for singing from memory, a printable PDF and an MP3
-(all parts equal) per song, and Hanna Norbäck's sung pronunciation for the
-two Swedish songs. Static site: works on GitHub Pages as is.
+a speed control (50–120 %, remembered per song), a one-bar count-in (soft
+ticks and/or beat numbers at the marker), a "Hide notes" view for singing
+from memory, a printable PDF and an MP3 (all parts equal, written tempo) per
+song, and Hanna Norbäck's sung pronunciation for the two Swedish songs.
+Static site: works on GitHub Pages as is.
 
 ## Change a song
 
@@ -34,6 +36,6 @@ syllable per note, and stops with the bar number if not.
 | `src/`     | song files and the build                                         |
 | `mei/`     | the generated MEI files (open in Verovio or MuseScore)           |
 
-Audio is synthesized in the browser (Web Audio), a cappella, starting exactly
-at the marker. Repeats are played as written: Sankta Lucia sings the second half
+Audio is synthesized in the browser (Web Audio), a cappella: after the
+count-in it starts exactly at the marker. Repeats are played as written: Sankta Lucia sings the second half
 twice; In the Bleak Midwinter plays three verses with a ritardando on the third.

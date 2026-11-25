@@ -32,7 +32,11 @@
     songs: [], song: null, data: null, layout: null, svg: null, geom: null, loc: null,
     voice: clampInt(store.get('voice', 0), 0, 2), mix: clampInt(store.get('mix', 3), 1, 5),
     pos: 0, playFrom: 0, playing: false, token: 0, lastSys: -1, verseOn: 0, hideNotes: false,
+    speed: 1, // per song, remembered in the browser; 1 = the written tempo
+    cueSound: store.get('cueSound', true) !== false,
+    cueVisual: store.get('cueVisual', true) !== false,
   };
+  const SPEED_MIN = 50, SPEED_MAX = 120;
   const cache = new Map();
 
   // ------------------------------------------------------------------ audio
@@ -69,12 +73,46 @@
     const pipeBus = ctx.createGain();
     pipeBus.gain.value = 1.0;
     pipeBus.connect(master);
+    const clickBus = ctx.createGain();
+    clickBus.gain.value = 1.0; // ticks land about 8-12 dB (A-weighted) under the singing: soft but clear
+    clickBus.connect(master);
+    const noise = ctx.createBuffer(1, Math.ceil(ctx.sampleRate * 0.12), ctx.sampleRate);
+    const nd = noise.getChannelData(0);
+    for (let i = 0; i < nd.length; i++) nd[i] = Math.random() * 2 - 1;
     // a soft, sustained organ-like tone for the parts; a brighter reed for the pitch pipe
     const waves = {
       voice: periodicWave(ctx, [1, 0.42, 0.2, 0.11, 0.06, 0.035, 0.02, 0.012]),
       reed: periodicWave(ctx, [1, 0.8, 0.62, 0.45, 0.34, 0.25, 0.18, 0.13, 0.09, 0.06, 0.04, 0.025]),
     };
-    return { master, buses, pipeBus, waves };
+    return { master, buses, pipeBus, clickBus, noise, waves };
+  }
+
+  // Count-in tick: a soft, short wooden "tok" (band-passed noise with a little pitched body), not a beep.
+  // level 2 = first beat of the bar, 1.5 = the middle of a 6/8 bar, 1 = other beats.
+  function scheduleTick(ctx, dest, noise, t, level) {
+    const src = ctx.createBufferSource();
+    src.buffer = noise;
+    const bp = ctx.createBiquadFilter();
+    bp.type = 'bandpass';
+    bp.frequency.value = level >= 2 ? 2300 : level > 1 ? 2000 : 1700;
+    bp.Q.value = 6;
+    const body = ctx.createOscillator();
+    body.type = 'sine';
+    body.frequency.value = level >= 2 ? 1150 : level > 1 ? 1000 : 850;
+    const bodyGain = ctx.createGain();
+    bodyGain.gain.value = 0.22;
+    const env = ctx.createGain();
+    env.gain.value = 0;
+    const peak = level >= 2 ? 0.95 : level > 1 ? 0.8 : 0.7;
+    env.gain.setValueAtTime(0, t);
+    env.gain.linearRampToValueAtTime(peak, t + 0.002);
+    env.gain.exponentialRampToValueAtTime(0.001, t + 0.075);
+    src.connect(bp); bp.connect(env);
+    body.connect(bodyGain); bodyGain.connect(env);
+    env.connect(dest);
+    src.start(t); src.stop(t + 0.09);
+    body.start(t); body.stop(t + 0.09);
+    return { osc: src, extra: body, env };
   }
 
   function scheduleTone(ctx, dest, wave, midi, t0, t1, o) {
@@ -125,7 +163,7 @@
 
   const audio = {
     ctx: null, master: null, buses: [], pipeBus: null, waves: {}, live: new Set(),
-    timer: null, startCtx: 0, startSong: 0, next: 0, pipeTimers: [],
+    timer: null, startCtx: 0, startSong: 0, next: 0, pipeTimers: [], speed: 1, count: null,
 
     ensure() {
       if (!this.ctx) {
@@ -157,12 +195,20 @@
       return node;
     },
 
-    start(from) {
+    // Song time is in seconds at the written tempo; at speed s, one song second takes 1/s real seconds.
+    start(from, withCountIn) {
       const ctx = this.ensure();
       if (!ctx) return false;
       this.halt();
-      this.startCtx = ctx.currentTime + 0.06;
+      this.speed = state.speed;
+      const plan = withCountIn ? countInPlan(from) : null;
+      this.startCtx = ctx.currentTime + 0.08 + (plan ? plan.lead : 0);
       this.startSong = from;
+      if (plan) {
+        const clicks = plan.clicks.map((c) => ({ ...c, at: this.startCtx - c.before }));
+        this.count = { clicks, shown: -1 };
+        if (state.cueSound) for (const c of clicks) this.tick(c.at, c.level);
+      }
       const notes = state.data.notes;
       let i = 0;
       while (i < notes.length && notes[i].t0 < from - 1e-4) {
@@ -175,23 +221,37 @@
       return true;
     },
 
-    now() { return this.startSong + (this.ctx.currentTime - this.startCtx); },
+    now() { return this.startSong + (this.ctx.currentTime - this.startCtx) * this.speed; },
+
+    // what the listener hears right now (the audio clock minus the output delay, e.g. Bluetooth speakers):
+    // used for everything drawn on screen, so the marker and count-in numbers line up with the sound
+    heardCtxTime() {
+      const lat = this.ctx.outputLatency || this.ctx.baseLatency || 0;
+      return this.ctx.currentTime - Math.min(Math.max(lat, 0), 0.5);
+    },
+    heardNow() { return this.startSong + (this.heardCtxTime() - this.startCtx) * this.speed; },
+
+    tick(t, level) {
+      const node = scheduleTick(this.ctx, this.clickBus, this.noise, t, level);
+      this.live.add(node);
+      node.osc.onended = () => { this.live.delete(node); try { node.env.disconnect(); } catch (e) { /* already gone */ } };
+    },
 
     pump() {
       if (!state.data) return;
       const t = this.now();
-      const horizon = t + (document.hidden ? 1.6 : 0.3); // background tabs throttle timers to ~1/s
+      const horizon = t + (document.hidden ? 1.6 : 0.3) * this.speed; // background tabs throttle timers to ~1/s
       const notes = state.data.notes;
       while (this.next < notes.length && notes[this.next].t0 < horizon) {
         this.play(notes[this.next], null);
         this.next++;
       }
-      if (t >= state.data.duration + 0.05) finished();
+      if (this.heardNow() >= state.data.duration + 0.05) finished(); // let the last note reach the speakers
     },
 
     play(n, from) {
-      const s = this.startCtx + ((from == null ? n.t0 : from) - this.startSong);
-      const e = this.startCtx + (n.t1 - this.startSong);
+      const s = this.startCtx + ((from == null ? n.t0 : from) - this.startSong) / this.speed;
+      const e = this.startCtx + (n.t1 - this.startSong) / this.speed;
       const s2 = Math.max(s, this.ctx.currentTime + 0.005);
       if (e - s2 < 0.02) return;
       for (const m of n.p) this.tone(this.buses[n.v], this.waves.voice, m, s2, e, VOICE_ENV);
@@ -200,7 +260,25 @@
     halt() {
       clearInterval(this.timer);
       this.timer = null;
+      this.count = null;
       this.silence();
+    },
+
+    // the Sound toggle also reaches a count-in already under way
+    syncTicks() {
+      const c = this.count;
+      if (!c || !this.ctx) return;
+      const t = this.ctx.currentTime;
+      for (const nd of [...this.live]) {
+        if (!nd.extra) continue; // ticks only, never the singing
+        try {
+          nd.env.gain.cancelScheduledValues(t);
+          nd.env.gain.setTargetAtTime(0, t, 0.008);
+          nd.osc.stop(t + 0.05); nd.extra.stop(t + 0.05);
+        } catch (e) { /* already over */ }
+        this.live.delete(nd);
+      }
+      if (state.cueSound) for (const k of c.clicks) if (k.at > t + 0.03) this.tick(k.at, k.level);
     },
 
     silence() {
@@ -217,7 +295,8 @@
           g.setValueAtTime(v, t);
           g.setTargetAtTime(0, t, 0.012);
           nd.osc.stop(t + 0.08);
-        } catch (e) { /* node already stopped */ }
+          if (nd.extra) nd.extra.stop(t + 0.08);
+        } catch (e) { /* node already stopped; its gain is at zero anyway */ }
       }
       this.live.clear();
     },
@@ -267,6 +346,32 @@
   }
   function timesBarIsPlayed(mi) {
     return state.data.instances.reduce((n, it) => n + (it.m === mi ? 1 : 0), 0);
+  }
+
+  // One bar of count-in ending where the music starts, on the bar's real beats (3/4 in three, 4/4 in
+  // four, the slow 6/8 songs in six) at the tempo actually in force there (a ritardando included) times
+  // the chosen speed. Starting mid-bar, the counts keep their place in the bar: a start on beat 2 of a
+  // 3/4 bar is counted "2, 3, 1" and the music comes in on 2.
+  function countInPlan(from) {
+    const d = state.data;
+    const [num, den] = d.meter;
+    const unit = den === 8 ? 0.5 : 1; // quarter notes per counted beat
+    const ii = instAt(from);
+    const dur = d.measures[d.instances[ii].m].dur;
+    const b = Math.min(beatAt(ii, from), dur);
+    const step = 0.25;
+    const b0 = Math.max(0, Math.min(b, dur - step));
+    const secPerQuarter = (timeAt(ii, b0 + step) - timeAt(ii, b0)) / step;
+    const period = secPerQuarter * unit / state.speed; // real seconds per counted beat
+    const c = b / unit; // where the start falls, in counted beats from the bar line
+    const g = Math.ceil(c - 1e-6);
+    const clicks = [];
+    for (let k = g - num; k <= g - 1; k++) {
+      const inBar = ((k % num) + num) % num;
+      const level = inBar === 0 ? 2 : (num === 6 && inBar === 3 ? 1.5 : 1);
+      clicks.push({ before: (c - k) * period, label: inBar + 1, level });
+    }
+    return { clicks, lead: clicks[0].before, period };
   }
 
   // ------------------------------------------------------------------ geometry from the engraved SVG
@@ -413,18 +518,20 @@
     stopPronunciation();
     if (state.pos >= state.data.duration - 0.02) state.pos = 0;
     state.playFrom = state.pos;
-    if (!audio.start(state.pos)) return;
+    state.lastSys = -1; // make sure the marker's line is on screen for the count-in
+    if (!audio.start(state.pos, state.cueSound || state.cueVisual)) return;
     state.playing = true;
     renderTransport();
     requestAnimationFrame(frame);
   }
   function pause() {
     if (!state.playing) return;
-    state.pos = Math.max(state.playFrom, Math.min(audio.now(), state.data.duration));
+    state.pos = Math.max(state.playFrom, Math.min(audio.heardNow(), state.data.duration));
     audio.halt();
     state.playing = false;
     renderTransport();
     drawMarker();
+    renderCount();
   }
   function finished() {
     audio.halt();
@@ -432,18 +539,47 @@
     state.pos = state.playFrom; // back to where this run started, ready to go again
     renderTransport();
     drawMarker();
+    renderCount();
   }
   function frame() {
     if (!state.playing) return;
-    state.pos = Math.max(state.playFrom, Math.min(audio.now(), state.data.duration));
+    state.pos = Math.max(state.playFrom, Math.min(audio.heardNow(), state.data.duration));
     drawMarker();
+    renderCount();
     autoScroll();
     requestAnimationFrame(frame);
   }
+  // count-in numbers above the marker; each beat pops in, the bar's first beat a little larger
+  function renderCount() {
+    const el = $('#count'), mk = $('#marker');
+    const ci = audio.count;
+    const hide = () => { if (ci) ci.shown = -1; if (!el.hidden) el.hidden = true; }; // shown again in full when it returns
+    if (!state.playing || !ci || !state.cueVisual || !state.loc || !audio.ctx) { hide(); return; }
+    const t = audio.heardCtxTime();
+    const clicks = ci.clicks;
+    if (t < clicks[0].at || t >= audio.startCtx) { hide(); return; }
+    let k = 0;
+    while (k + 1 < clicks.length && clicks[k + 1].at <= t) k++;
+    el.style.left = state.loc.x.toFixed(1) + 'px';
+    el.style.top = Math.max(2, state.loc.top - (clicks[k].level >= 2 ? 48 : 44)).toFixed(1) + 'px';
+    if (k !== ci.shown) {
+      ci.shown = k;
+      el.textContent = String(clicks[k].label);
+      el.classList.toggle('down', clicks[k].level >= 2);
+      el.hidden = false;
+      for (const node of [el, mk]) { // restart the pop / glow animation on every beat
+        const cls = node === el ? 'pop' : 'beat';
+        node.classList.remove(cls);
+        void node.offsetWidth;
+        node.classList.add(cls);
+      }
+    }
+  }
+  // moving the marker while playing starts again from there, with the count-in, so singers can come in together
   function seek(T) {
     state.pos = T;
     state.playFrom = T;
-    if (state.playing) audio.start(T);
+    if (state.playing) audio.start(T, state.cueSound || state.cueVisual);
     drawMarker();
   }
   function autoScroll() {
@@ -523,7 +659,7 @@
     if (!p || !d) { el.textContent = ''; return; }
     let where = `Bar <b>${p.m + 1}</b>`;
     if (timesBarIsPlayed(p.m) > 1) where += d.passLabel === 'verse' ? ` · verse ${p.pass}` : ` · ${ordinal(p.pass)} time`;
-    el.innerHTML = `${where} · ${fmt(state.pos)} / ${fmt(d.duration)}`;
+    el.innerHTML = `${where} · ${fmt(state.pos / state.speed)} / ${fmt(d.duration / state.speed)}`; // real time at this speed
   }
   function renderVerse() {
     const d = state.data;
@@ -540,6 +676,28 @@
       ? '<path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z" fill="currentColor"/>'
       : '<path d="M8 5.5v13l11-6.5z" fill="currentColor"/>';
     renderVerse();
+  }
+  function renderSpeed() {
+    const pct = Math.round(state.speed * 100);
+    const bpm = state.data ? Math.round(state.data.tempo * state.speed) : null;
+    $('#speed').value = String(pct);
+    // a drawn quarter note: the ♩ character falls back to odd, tiny glyphs in many fonts
+    const note = '<svg class="qnote" viewBox="0 0 10 20" aria-hidden="true"><ellipse cx="5" cy="15.6" rx="3.7" ry="2.6" transform="rotate(-22 5 15.6)" fill="currentColor"/><path d="M8.2 15V2" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>';
+    $('#speedOut').innerHTML = `${pct}%` + (bpm ? ` <span class="bpm">· ${note}= ${bpm}</span>` : '');
+    $('#speed').setAttribute('aria-valuetext', `${pct} percent` + (bpm ? `, ${bpm} quarter notes per minute` : ''));
+    $('#speedReset').hidden = pct === 100;
+  }
+  // keep the new speed for this song; if playing, carry on from here at the new speed
+  function applySpeed() {
+    if (state.song) store.set('speed.' + state.song.id, Math.round(state.speed * 100));
+    if (!state.playing || !audio.ctx) return;
+    const counting = audio.count && audio.heardCtxTime() < audio.startCtx;
+    const T = counting ? state.playFrom : Math.max(state.playFrom, Math.min(audio.heardNow(), state.data.duration));
+    audio.start(T, counting);
+  }
+  function renderCues() {
+    $('#cueSound').setAttribute('aria-pressed', String(state.cueSound));
+    $('#cueVisual').setAttribute('aria-pressed', String(state.cueVisual));
   }
   function renderHideNotes() {
     $('#svgHost').classList.toggle('notes-hidden', state.hideNotes);
@@ -699,6 +857,8 @@
         }
       });
     renderPronunciation(song);
+    state.speed = clampInt(store.get('speed.' + song.id, 100), SPEED_MIN, SPEED_MAX) / 100;
+    renderSpeed();
     $('#svgHost').innerHTML = '<div class="loading">Loading the music…</div>';
     $('#bands').innerHTML = '';
     $('#marker').hidden = true;
@@ -707,6 +867,7 @@
       const data = JSON.parse(await fetchText(`scores/${song.id}.json`));
       if (token !== state.token) return;
       state.data = data;
+      renderSpeed(); // now with the song's tempo
       await renderScore(true);
     } catch (e) {
       $('#svgHost').innerHTML = '<div class="loading">The music could not be loaded. Check your connection and reload the page.</div>';
@@ -757,6 +918,20 @@
       if (IS_ARTIFACT) { e.preventDefault(); setStatus('Downloads work on the public website.'); }
     }));
     $('#hideBtn').addEventListener('click', () => { state.hideNotes = !state.hideNotes; renderHideNotes(); });
+    const speedEl = $('#speed');
+    speedEl.addEventListener('input', () => {
+      state.speed = clampInt(speedEl.value, SPEED_MIN, SPEED_MAX) / 100;
+      renderSpeed();
+      renderStatus();
+    });
+    speedEl.addEventListener('change', applySpeed);
+    $('#speedReset').addEventListener('click', () => { state.speed = 1; renderSpeed(); renderStatus(); applySpeed(); });
+    [['#cueSound', 'cueSound'], ['#cueVisual', 'cueVisual']].forEach(([sel, key]) => $(sel).addEventListener('click', () => {
+      state[key] = !state[key];
+      store.set(key, state[key]);
+      renderCues();
+      if (key === 'cueSound') audio.syncTicks();
+    }));
     $('#pronToggle').addEventListener('click', () => {
       const guide = $('#pronGuide');
       const open = guide.hidden;
@@ -811,6 +986,7 @@
   async function init() {
     bind();
     renderVoice();
+    renderCues();
     try {
       state.songs = JSON.parse(await fetchText('scores/index.json'));
     } catch (e) {
@@ -824,7 +1000,7 @@
 
   if (/[?&]debug\b/.test(location.search)) {
     window.__luciaDebug = {
-      state, locate, timeAt,
+      state, locate, timeAt, audio, countInPlan,
       // used by src/make_mp3.py: render a song with all parts equal and hand it over as a WAV download
       async downloadWav(id) {
         const data = JSON.parse(await fetchText(`scores/${id}.json`));

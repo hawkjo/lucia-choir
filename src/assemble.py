@@ -3,6 +3,7 @@
 index.html    -> GitHub Pages (links style.css / app.js)
 artifact.html -> claude.ai preview (body-only, CSS and JS inlined)
 """
+import hashlib
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -23,6 +24,10 @@ def main() -> None:
     js = (WEB / "app.js").read_text(encoding="utf-8")
     (ROOT / "style.css").write_text(css, encoding="utf-8")
     (ROOT / "app.js").write_text(js, encoding="utf-8")
+    # GitHub Pages lets browsers reuse files for 10 minutes; a content stamp in the link makes every
+    # change a new address, so a normal reload always picks up the latest stylesheet and script.
+    v_css = hashlib.sha1(css.encode("utf-8")).hexdigest()[:8]
+    v_js = hashlib.sha1(js.encode("utf-8")).hexdigest()[:8]
     index = f"""<!doctype html>
 <html lang="en">
 <head>
@@ -34,11 +39,11 @@ def main() -> None:
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="{FONTS}">
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style.css?v={v_css}">
 </head>
 <body>
 {body}
-<script src="app.js"></script>
+<script src="app.js?v={v_js}"></script>
 </body>
 </html>
 """
